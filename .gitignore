@@ -1,0 +1,50 @@
+# Entorno virtual
+venv/
+ENV/
+env/
+.venv/
+
+# Archivos de Python compilados
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Archivos temporales
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Archivos de configuración de entorno local
+*.env
+.env.*
+.flaskenv
+
+# Archivos y carpetas del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de Node.js (si usas Tailwind con npm)
+node_modules/
+package-lock.json
+npm-debug.log
+
+# Archivos de build de Tailwind (si los generas)
+static/css/output.css
+
+# Archivos de configuración de editores
+.vscode/
+.idea/
+*.code-workspace
+
+# Archivos de prueba y cobertura (si haces testing)
+htmlcov/
+.coverage
+.tox/
+.cache/
+pytest_cache/
+
+# Ignorar archivos secretos o de desarrollo personal
+secrets.json
