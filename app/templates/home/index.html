@@ -1,8 +1,141 @@
 {% extends 'base.html' %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Gestor de Archivos{% endblock %}
 
 {% block content %}
-    <h1 class="text-2xl font-bold">Bienvenido a la página de inicio</h1>
-    <p>Este es el contenido principal de la página de inicio.</p>
+<div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-teal-fresh/30 p-8 w-[600px]">
+    <!-- Header -->
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-deep-teal mb-2">Archivos</h1>
+        <p class="text-gray-600">Sube y gestiona tus archivos CSV y Excel de forma sencilla</p>
+    </div>
+
+    <!-- Upload Form -->
+    <div class="mb-8">
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            <label for="file"
+                class="relative cursor-pointer block w-full border-2 border-dashed border-teal-fresh rounded-xl bg-fresh-mint/50 p-6 text-center transition-colors duration-200 hover:border-ocean-blue">
+                <input id="file" type="file" name="file" accept=".csv, .xlsx, .xls"
+                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" required>
+                <div id="uploadMessage" class="pointer-events-none relative z-0">
+                    <span class="text-4xl block mb-2">📄</span>
+                    <span class="text-sm text-gray-500">Arrastra tu archivo aquí o haz clic para seleccionar</span>
+                </div>
+            </label>
+
+            <div class="flex justify-center">
+                <button type="submit" class="bg-gradient-to-r from-ocean-blue to-deep-teal text-white px-6 py-3 
+                    rounded-full font-medium transition-all duration-200 hover:bg-[#b6faea]">
+                    <span class="flex items-center justify-center gap-2">
+                        <span>Subir Archivo</span>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Files List -->
+    <div>
+        <h2 class="text-xl font-semibold text-deep-teal mb-4 flex items-center gap-2">
+            <span>📁</span>
+            Archivos cargados
+        </h2>
+
+        <div class="space-y-3 max-h-80 overflow-y-auto">
+            {% for file in files %}
+            <div class="bg-gradient-to-r from-sage-green/30 to-mint-green/50 border border-sage-green/50 
+                            rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 group">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-emerald-400 to-teal-500 
+                                        rounded-lg flex items-center justify-center">
+                            <span class="text-white font-medium">
+                                {% if file.name.endswith('.csv') %}📊{% else %}📈{% endif %}
+                            </span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-deep-teal">{{ file.name }}</span>
+                            <div class="text-xs text-gray-500 mt-1">
+                                {% if file.name.endswith('.csv') %}Archivo CSV{% else %}Archivo Excel{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <form method="POST" action="{{ url_for('main.delete_file', file_id=file.id) }}" class="delete-form">
+                        <button type="submit" class="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600 
+                                p-2 rounded-lg hover:bg-red-50 transition-all duration-200
+                                focus:outline-none focus:ring-2 focus:ring-red-300">
+                            <span class="text-lg">🗑️</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-8">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl opacity-50">📄</span>
+                </div>
+                <p class="text-gray-500 mb-2">No hay archivos cargados aún</p>
+                <p class="text-sm text-gray-400">Sube tu primer archivo CSV o Excel para comenzar</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Floating background elements -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+    <div class="absolute top-20 left-10 w-32 h-32 bg-teal-fresh/20 rounded-full blur-xl"></div>
+    <div class="absolute bottom-20 right-10 w-40 h-40 bg-ocean-blue/10 rounded-full blur-xl"></div>
+    <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-sage-green/30 rounded-full blur-lg"></div>
+</div>
+
+<script>
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¡Esta acción eliminará el archivo!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.setItem('deleteSuccess', 'true');
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    document.getElementById('file').addEventListener('change', function () {
+        if (this.files.length > 0) {
+            document.getElementById('uploadMessage').innerHTML = `
+            <span class="text-2xl block mb-2">✅</span>
+            <span class="text-xl text-base text-gray-700 font-medium">Archivo listo para cargar</span>
+            <br></br>
+            <span class="text-sm text-gray-700 font-medium">Haga click de nuevo para seleccionar otro archivo</span>
+        `;
+        }
+    });
+</script>
+
+<script>
+    if (localStorage.getItem('deleteSuccess') === 'true') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Eliminado exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        localStorage.removeItem('deleteSuccess');
+    }
+</script>
+
+
 {% endblock %}

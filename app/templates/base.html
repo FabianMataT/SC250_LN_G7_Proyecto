@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Proyecto Flask{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fresh-mint': '#F0FDFA',
+                        'mint-green': '#CCFBF1',
+                        'teal-fresh': '#5EEAD4',
+                        'ocean-blue': '#0891B2',
+                        'deep-teal': '#0F766E',
+                        'sage-green': '#A7F3D0'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100 text-gray-900">
-    <nav class="bg-white shadow p-4 flex gap-4">
-        <a href="/" class="hover:underline">Inicio</a>
-        <a href="/about" class="hover:underline">Acerca de</a>
+
+<body class="bg-gradient-to-br from-fresh-mint via-mint-green to-cyan-50 min-h-screen text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-sm shadow-lg border-b border-teal-fresh/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center gap-8 py-4">
+                <a href="/"
+                    class="text-deep-teal hover:text-ocean-blue transition-colors duration-200 font-medium px-4 py-2 rounded-lg hover:bg-mint-green/50">
+                    📄 Archivos
+                </a>
+                <a href="/graphics"
+                    class="text-deep-teal hover:text-ocean-blue transition-colors duration-200 font-medium px-4 py-2 rounded-lg hover:bg-mint-green/50">
+                    📊 Grafícos
+                </a>
+            </div>
+        </div>
     </nav>
 
-    <main class="p-6">
-        {% block content %}{% endblock %}
+    <!-- Main Content -->
+    <main class="min-h-[calc(100vh-80px)] px-4 py-8">
+        <div class="w-full flex justify-center">
+            {% block content %}{% endblock %}
+        </div>
     </main>
 
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
+
 </html>
