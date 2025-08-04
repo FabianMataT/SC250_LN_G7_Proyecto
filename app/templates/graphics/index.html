@@ -1,8 +1,179 @@
 {% extends 'base.html' %}
 
-{% block title %}Acerca de{% endblock %}
+{% block title %}Análisis de Datos{% endblock %}
 
 {% block content %}
-    <h1 class="text-2xl font-bold">Acerca del pryecto</h1>
-    <p>Vamos a desarrollar una apliación web para mostrar los graficos.</p>
+<div class="min-h-screen w-full bg-gradient-to-tr from-indigo-50 via-indigo-100 to-indigo-50 py-16 px-12 flex flex-col items-center">
+
+  <!-- Título principal -->
+  <h1 class="text-5xl font-extrabold text-indigo-900 mb-16 select-none text-center w-full max-w-[1200px]">
+    Análisis de Datos con Inteligencia Artificial
+  </h1>
+
+  <!-- Formulario de carga -->
+  <form method="POST" enctype="multipart/form-data"
+    class="w-full max-w-[1200px] bg-white rounded-3xl shadow-2xl border border-indigo-300 p-12 mb-20
+           transition-shadow hover:shadow-3xl duration-300"
+  >
+    <label for="datafile"
+      class="block text-xl font-semibold text-indigo-700 mb-6 cursor-pointer select-none hover:text-indigo-900 transition-colors"
+    >
+      📄 Selecciona un archivo CSV para analizar
+    </label>
+    <input
+      type="file"
+      id="datafile"
+      name="datafile"
+      accept=".csv"
+      required
+      class="block w-full text-indigo-600
+             file:mr-4 file:py-3 file:px-6
+             file:rounded-full file:border-0
+             file:text-lg file:font-semibold
+             file:bg-indigo-600 file:text-white
+             hover:file:bg-indigo-700
+             cursor-pointer mb-8
+             transition-colors duration-300"
+    />
+    <span id="file-name" class="block text-indigo-400 italic mb-10 select-none">Ningún archivo seleccionado</span>
+
+    <button
+      type="submit"
+      class="w-full bg-gradient-to-r from-indigo-700 to-indigo-600 hover:from-indigo-800 hover:to-indigo-700
+             text-white font-bold py-5 rounded-3xl shadow-lg
+             transition duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-400 focus:ring-opacity-50"
+    >
+      Procesar Datos
+    </button>
+  </form>
+
+  <!-- Sección: Técnicas IA -->
+  <section class="w-full max-w-[1200px] mb-24 px-6">
+    <h2 class="text-4xl font-extrabold text-indigo-900 mb-12 text-center select-none">
+      Técnicas de Inteligencia Artificial Aplicadas
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <!-- Clustering -->
+      <div
+        class="bg-indigo-50 p-8 rounded-3xl shadow-lg border border-indigo-200 hover:shadow-xl transition-shadow duration-300"
+        tabindex="0" aria-label="Clustering - Agrupar datos similares"
+      >
+        <div class="text-indigo-700 text-6xl mb-6 text-center select-none" aria-hidden="true">📊</div>
+        <h3 class="text-2xl font-bold text-indigo-900 mb-4 text-center">Clustering</h3>
+        <p class="text-indigo-800 leading-relaxed text-center">
+          Agrupamos datos similares para descubrir patrones y segmentar tu información.<br />
+          <span class="font-semibold">Ejemplos:</span> K-means, DBSCAN
+        </p>
+      </div>
+
+      <!-- Detección de Outliers -->
+      <div
+        class="bg-indigo-50 p-8 rounded-3xl shadow-lg border border-indigo-200 hover:shadow-xl transition-shadow duration-300"
+        tabindex="0" aria-label="Detección de outliers - Identificar valores atípicos"
+      >
+        <div class="text-indigo-700 text-6xl mb-6 text-center select-none" aria-hidden="true">🚩</div>
+        <h3 class="text-2xl font-bold text-indigo-900 mb-4 text-center">Detección de Outliers</h3>
+        <p class="text-indigo-800 leading-relaxed text-center">
+          Identificamos valores atípicos que pueden indicar errores o eventos importantes.<br />
+          <span class="font-semibold">Métodos:</span> Z-score, IQR, Isolation Forest
+        </p>
+      </div>
+
+      <!-- Análisis de Correlaciones -->
+      <div
+        class="bg-indigo-50 p-8 rounded-3xl shadow-lg border border-indigo-200 hover:shadow-xl transition-shadow duration-300"
+        tabindex="0" aria-label="Análisis de correlaciones - Explorar relaciones entre variables"
+      >
+        <div class="text-indigo-700 text-6xl mb-6 text-center select-none" aria-hidden="true">🔗</div>
+        <h3 class="text-2xl font-bold text-indigo-900 mb-4 text-center">Análisis de Correlaciones</h3>
+        <p class="text-indigo-800 leading-relaxed text-center">
+          Exploramos relaciones entre variables para entender dependencias y tendencias.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resultados: Clustering, Outliers, etc -->
+  {% if clustering_kmeans_labels %}
+  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
+    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Clustering K-means</h2>
+    <p class="mb-3 text-indigo-800 font-medium">Etiquetas:</p>
+    <ul class="list-disc list-inside text-indigo-700 space-y-1">
+      {% for label in clustering_kmeans_labels %}
+        <li>{{ label }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if clustering_dbscan_labels %}
+  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
+    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Clustering DBSCAN</h2>
+    <p class="mb-3 text-indigo-800 font-medium">Etiquetas:</p>
+    <ul class="list-disc list-inside text-indigo-700 space-y-1">
+      {% for label in clustering_dbscan_labels %}
+        <li>{{ label }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if status_zscore %}
+  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
+    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Outliers detectados con Z-score</h2>
+    <ul class="text-indigo-700 space-y-1">
+      {% for stat in status_zscore %}
+        <li>Fila {{ loop.index }}: {{ stat }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if status_iqr %}
+  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
+    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Outliers detectados con IQR</h2>
+    <ul class="text-indigo-700 space-y-1">
+      {% for stat in status_iqr %}
+        <li>Fila {{ loop.index }}: {{ stat }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if status_iso %}
+  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
+    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Outliers detectados con Isolation Forest</h2>
+    <ul class="text-indigo-700 space-y-1">
+      {% for stat in status_iso %}
+        <li>Fila {{ loop.index }}: {{ stat }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if plot_img %}
+  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
+    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Matriz de Correlación</h2>
+    <div class="overflow-auto rounded shadow-lg border border-indigo-200 p-4 bg-white">
+      <img src="data:image/png;base64,{{ plot_img }}" alt="Heatmap de correlación" class="mx-auto max-w-full rounded-md shadow-md" />
+    </div>
+  </section>
+  {% endif %}
+
+</div>
+
+<script>
+  // Mostrar nombre del archivo seleccionado
+  const inputFile = document.getElementById('datafile');
+  const fileNameSpan = document.getElementById('file-name');
+
+  inputFile.addEventListener('change', () => {
+    if (inputFile.files.length > 0) {
+      fileNameSpan.textContent = inputFile.files[0].name;
+    } else {
+      fileNameSpan.textContent = 'Ningún archivo seleccionado';
+    }
+  });
+</script>
 {% endblock %}
