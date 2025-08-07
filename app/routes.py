@@ -12,6 +12,9 @@ def home():
         file = request.files.get('file')
         if file:
             FileManager.add_file(session, file)
+            session['uploadSuccess'] = 'True'
+        else:
+            session['uploadSuccess'] = 'False'
     files = FileManager.get_files(session)
     return render_template('home/index.html', files=files)
 
