@@ -79,21 +79,6 @@
             </div>
             {% endfor %}
         </div>
-        {% else %}
-        <div
-          class="text-center py-16 text-teal-400 select-none flex flex-col items-center justify-center gap-5"
-        >
-          <div
-            class="w-24 h-24 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner"
-          >
-            <span class="text-4xl">📄</span>
-          </div>
-          <p class="text-2xl font-light">No hay archivos cargados aún</p>
-          <p class="text-base mt-1 max-w-xs">
-            Sube tu primer archivo CSV o Excel para comenzar
-          </p>
-        </div>
-        {% endfor %}
       </div>
     </section>
     {% if analisis %}
