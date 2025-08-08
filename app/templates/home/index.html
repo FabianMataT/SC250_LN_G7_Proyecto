@@ -3,87 +3,81 @@
 {% block title %}Gestor de Archivos{% endblock %}
 
 {% block content %}
-<!-- Fondo full screen con gradiente suave y animaciones sutiles -->
-<div class="min-h-screen w-full bg-gradient-to-tr from-teal-900 via-teal-800 to-teal-700 flex items-center justify-center px-6 py-16 relative overflow-hidden">
-  
-  <!-- Elementos flotantes animados (blur y movimiento) -->
-  <div class="absolute top-24 left-12 w-44 h-44 bg-teal-400/20 rounded-full blur-3xl animate-blob"></div>
-  <div class="absolute bottom-24 right-12 w-56 h-56 bg-teal-500/15 rounded-full blur-4xl animate-blob animation-delay-4000"></div>
-  <div class="absolute top-1/2 left-1/3 w-36 h-36 bg-teal-300/30 rounded-full blur-2xl animate-blob animation-delay-2000"></div>
-
-  <!-- Contenedor principal (tarjeta blanca con blur y sombra) -->
-  <div
-    class="relative bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border border-teal-300/40 p-14 max-w-3xl w-full
-           flex flex-col"
-  >
+<div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-teal-fresh/30 p-8 w-[600px]">
     <!-- Header -->
-    <header class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold text-teal-800 mb-2 tracking-tight select-none">
-        Gestor de Archivos
-      </h1>
-      <p class="text-teal-600 text-lg sm:text-xl font-light">
-        Sube y administra tus archivos CSV y Excel fácilmente
-      </p>
-    </header>
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-deep-teal mb-2">Archivos</h1>
+        <p class="text-gray-600">Sube y gestiona tus archivos CSV y Excel de forma sencilla</p>
+    </div>
 
     <!-- Upload Form -->
-    <form method="POST" enctype="multipart/form-data" class="mb-12 space-y-8">
-      <label for="file"
-        class="relative block w-full cursor-pointer border-4 border-dashed border-teal-400 rounded-3xl bg-teal-50 hover:bg-teal-100 transition duration-400 p-10 text-center flex flex-col items-center justify-center gap-3 select-none shadow-inner hover:shadow-lg"
-      >
-        <input id="file" type="file" name="file" accept=".csv, .xlsx, .xls"
-          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-30" required>
-        <span class="text-7xl pointer-events-none select-none">📄</span>
-        <span class="text-lg text-teal-700 font-semibold pointer-events-none tracking-wide">
-          Arrastra tu archivo aquí o haz clic para seleccionar
-        </span>
-      </label>
-      <div class="flex justify-center">
-        <button type="submit"
-          class="inline-flex items-center gap-3 bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600
-                 text-white rounded-full px-10 py-4 font-semibold text-xl shadow-lg transition duration-400 focus:outline-none focus:ring-6 focus:ring-teal-300"
-        >
-          <span>Subir Archivo</span>
-        </button>
-      </div>
-    </form>
+    <div class="mb-8">
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            <label for="file"
+                class="relative cursor-pointer block w-full border-2 border-dashed border-teal-fresh rounded-xl bg-fresh-mint/50 p-6 text-center transition-colors duration-200 hover:border-ocean-blue">
+                <input id="file" type="file" name="file" accept=".csv, .xlsx, .xls"
+                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" required>
+                <div id="uploadMessage" class="pointer-events-none relative z-0">
+                    <span class="text-4xl block mb-2">📄</span>
+                    <span class="text-sm text-gray-500">Arrastra tu archivo aquí o haz clic para seleccionar</span>
+                </div>
+            </label>
+
+            <div class="flex justify-center">
+                <button type="submit" class="bg-gradient-to-r from-ocean-blue to-deep-teal text-white px-6 py-3 
+                    rounded-full font-medium transition-all duration-200 hover:bg-[#b6faea]">
+                    <span class="flex items-center justify-center gap-2">
+                        <span>Subir Archivo</span>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
 
     <!-- Files List -->
-    <section>
-      <h2 class="flex items-center gap-4 text-teal-700 font-semibold text-2xl mb-8 select-none">
-        <span>📁</span> Archivos cargados
-      </h2>
+    <div>
+        <h2 class="text-xl font-semibold text-deep-teal mb-4 flex items-center gap-2">
+            <span>📁</span>
+            Archivos cargados
+        </h2>
 
-      <div class="max-h-[24rem] overflow-y-auto space-y-6 pr-4 scrollbar-thin scrollbar-thumb-teal-400 scrollbar-track-teal-100">
-        {% for file in files %}
-        <div
-          class="flex justify-between items-center bg-gradient-to-r from-teal-100 to-teal-50 border border-teal-300 rounded-3xl p-6
-                 shadow-md hover:shadow-2xl transition duration-300 group select-text"
-        >
-          <div class="flex items-center gap-6">
-            <div
-              class="w-14 h-14 rounded-xl bg-gradient-to-tr from-teal-600 to-teal-400 flex items-center justify-center text-white text-4xl select-none"
-              title="{{ file.name }}"
-            >
-              {% if file.name.endswith('.csv') %}📊{% else %}📈{% endif %}
+        <div class="space-y-3 max-h-80 overflow-y-auto">
+            {% for file in files %}
+            <div class="bg-gradient-to-r from-sage-green/30 to-mint-green/50 border border-sage-green/50 
+                            rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 group">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-emerald-400 to-teal-500 
+                                        rounded-lg flex items-center justify-center">
+                            <span class="text-white font-medium">
+                                {% if file.name.endswith('.csv') %}📊{% else %}📈{% endif %}
+                            </span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-deep-teal">{{ file.name }}</span>
+                            <div class="text-xs text-gray-500 mt-1">
+                                {% if file.name.endswith('.csv') %}Archivo CSV{% else %}Archivo Excel{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <form method="POST" action="{{ url_for('main.delete_file', file_id=file.id) }}" class="delete-form">
+                        <button type="submit" class="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600 
+                                p-2 rounded-lg hover:bg-red-50 transition-all duration-200
+                                focus:outline-none focus:ring-2 focus:ring-red-300">
+                            <span class="text-lg">🗑️</span>
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div class="flex flex-col max-w-lg">
-              <span
-                class="font-semibold text-teal-700 truncate max-w-full"
-                title="{{ file.name }}"
-              >{{ file.name }}</span>
-              <span class="text-sm text-teal-500">
-                {% if file.name.endswith('.csv') %}Archivo CSV{% else %}Archivo Excel{% endif %}
-              </span>
+            {% else %}
+            <div class="text-center py-8">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl opacity-50">📄</span>
+                </div>
+                <p class="text-gray-500 mb-2">No hay archivos cargados aún</p>
+                <p class="text-sm text-gray-400">Sube tu primer archivo CSV o Excel para comenzar</p>
             </div>
-          </div>
-          <form method="POST" action="{{ url_for('main.delete_file', file_id=file.id) }}" class="delete-form">
-            <button type="submit"
-              class="text-red-600 hover:text-red-800 p-3 rounded-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100 focus:outline-none focus:ring-4 focus:ring-red-400"
-              aria-label="Eliminar archivo {{ file.name }}">
-              🗑️
-            </button>
-          </form>
+            {% endfor %}
         </div>
         {% else %}
         <div
@@ -137,81 +131,72 @@
 
 
 <script>
-  document.querySelectorAll('.delete-form').forEach(form => {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      Swal.fire({
-        title: '¿Estás seguro?',
-        text: '¡Esta acción eliminará el archivo!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          localStorage.setItem('deleteSuccess', 'true');
-          form.submit();
-        }
-      });
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¡Esta acción eliminará el archivo!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.setItem('deleteSuccess', 'true');
+                    form.submit();
+                }
+            });
+        });
     });
-  });
-
-  document.getElementById('file').addEventListener('change', function () {
-    if (this.files.length > 0) {
-      // Optional: Aquí podrías actualizar algún texto o estilo si quieres
-    }
-  });
-
-  if (localStorage.getItem('deleteSuccess') === 'true') {
-    Swal.fire({
-      icon: 'success',
-      title: 'Eliminado exitosamente',
-      showConfirmButton: false,
-      timer: 1500
-    });
-    localStorage.removeItem('deleteSuccess');
-  }
 </script>
 
-<style>
-  @keyframes blob {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
+<script>
+    document.getElementById('file').addEventListener('change', function () {
+        if (this.files.length > 0) {
+            document.getElementById('uploadMessage').innerHTML = `
+            <span class="text-2xl block mb-2">✅</span>
+            <span class="text-xl text-base text-gray-700 font-medium">Archivo listo para cargar</span>
+            <br></br>
+            <span class="text-sm text-gray-700 font-medium">Haga click de nuevo para seleccionar otro archivo</span>
+        `;
+        }
+    });
+</script>
+
+<script>
+    if (localStorage.getItem('deleteSuccess') === 'true') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Eliminado exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        localStorage.removeItem('deleteSuccess');
     }
-    33% {
-      transform: translate(30px, -20px) scale(1.1);
+</script>
+
+
+<script>
+    const uploadSuccess = "{{ session.pop('uploadSuccess', '') }}";
+    if (uploadSuccess === 'True') {
+        Swal.fire({ 
+            position: "top-end",
+            icon: "success",
+            title: "Archivo subido exitosamente",
+            showConfirmButton: false,
+            timer: 1000
+        });
+    } else if (uploadSuccess === 'False') {
+        Swal.fire({ 
+            icon: "error",
+            title: "Error al subir el archivo",
+            text: "Verifica que el archivo sea válido e inténtalo de nuevo",
+        });
     }
-    66% {
-      transform: translate(-20px, 30px) scale(0.9);
-    }
-  }
+</script>
 
-  .animate-blob {
-    animation: blob 7s infinite;
-  }
-
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  .animation-delay-4000 {
-    animation-delay: 4s;
-  }
-
-  /* Optional: Scrollbar estilizada para mejor UX */
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 8px;
-  }
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: #e0f2f1;
-    border-radius: 9999px;
-  }
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: #14b8a6;
-    border-radius: 9999px;
-  }
-</style>
 
 {% endblock %}
