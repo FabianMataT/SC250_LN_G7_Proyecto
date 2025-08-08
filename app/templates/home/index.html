@@ -102,8 +102,39 @@
         {% endfor %}
       </div>
     </section>
+    {% if analisis %}
+    <hr class="my-10 border-teal-300">
+
+    <section>
+      <h2 class="flex items-center gap-4 text-teal-700 font-semibold text-2xl mb-8 select-none">
+        <span>📊</span> Análisis del archivo
+      </h2>
+
+      <div class="space-y-4">
+        <p><strong>Filas y columnas:</strong> {{ analisis.shape }}</p>
+
+        <h3 class="text-xl font-semibold text-teal-600">Tipos de variables</h3>
+        <ul class="list-disc pl-6">
+          {% for col, tipo in analisis.tipos.items() %}
+            <li>{{ col }} → {{ tipo }}</li>
+          {% endfor %}
+        </ul>
+
+        <h3 class="text-xl font-semibold text-teal-600">Valores nulos</h3>
+        <ul class="list-disc pl-6">
+          {% for col, nulos in analisis.nulos.items() %}
+            <li>{{ col }} → {{ nulos }}</li>
+          {% endfor %}
+        </ul>
+
+        <h3 class="text-xl font-semibold text-teal-600">Estadísticas</h3>
+        <pre class="bg-teal-50 p-4 rounded-lg overflow-x-auto text-sm">{{ analisis.estadisticas | tojson(indent=2) }}</pre>
+      </div>
+    </section>
+    {% endif %}
   </div>
 </div>
+
 
 <script>
   document.querySelectorAll('.delete-form').forEach(form => {

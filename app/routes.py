@@ -8,12 +8,13 @@ main = Blueprint('main', __name__)
 @main.route('/', methods=['GET', 'POST'])
 def home():
     FileManager.init_session(session)
+    analisis = None  # Para guardar el resultado del análisi
     if request.method == 'POST':
         file = request.files.get('file')
         if file:
-            FileManager.add_file(session, file)
+            analisis = FileManager.add_file(session, file)  # Devuelve análisis
     files = FileManager.get_files(session)
-    return render_template('home/index.html', files=files)
+    return render_template('home/index.html', files=files, analisis=analisis)
 
 @main.route('/delete/<file_id>', methods=['POST'])
 def delete_file(file_id):
@@ -52,8 +53,9 @@ def graphics():
             status_iqr = ["Outlier" if val else "Normal" for val in outliers_iqr]
             status_iso = ["Outlier" if val else "Normal" for val in outliers_iso]
 
-            # Heatmap correlación
-            plot_img = ia_tools.plot_correlation_matrix(numeric_df)
+            # Heatmap correlación solo si hay al menos 2 columnas numéricas
+            if numeric_df.shape[1] > 1:
+                plot_img = ia_tools.plot_correlation_matrix(numeric_df)
 
     return render_template('graphics/index.html',
                            plot_img=plot_img,
@@ -62,3 +64,4 @@ def graphics():
                            status_zscore=status_zscore,
                            status_iqr=status_iqr,
                            status_iso=status_iso)
+
