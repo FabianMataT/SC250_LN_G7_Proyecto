@@ -15,32 +15,32 @@ class FileManager:
 
     @staticmethod
     def add_file(session, file):
-        # Crear carpeta si no existe
         if not os.path.exists(UPLOAD_FOLDER):
             os.makedirs(UPLOAD_FOLDER)
 
-        # Guardar archivo en disco
         file_id = str(uuid.uuid4())
         filename = secure_filename(file.filename)
         filepath = os.path.join(UPLOAD_FOLDER, filename)
         file.save(filepath)
 
-        # Guardar en sesión
+        analisis = FileManager.process_file(filepath)
+
         file_info = {
             'id': file_id,
             'name': filename,
-            'path': filepath
+            'path': filepath,
+            'analisis': analisis  # guardamos el análisis
         }
+
         files = session[FileManager.UPLOAD_SESSION_KEY]
         files.append(file_info)
         session[FileManager.UPLOAD_SESSION_KEY] = files
 
-        # Procesar el archivo
-        return FileManager.process_file(filepath)
+        return analisis
+
 
     @staticmethod
     def process_file(filepath):
-        # Detectar tipo de archivo y cargar
         if filepath.endswith(".csv"):
             df = pd.read_csv(filepath)
         elif filepath.endswith((".xls", ".xlsx")):
@@ -48,26 +48,25 @@ class FileManager:
         else:
             return {"error": "Formato no soportado"}
 
-        # Limpieza básica
-        df.columns = [c.strip() for c in df.columns]  # Quitar espacios en headers
+        df.columns = [c.strip() for c in df.columns]
         df = df.drop_duplicates()
-        df = df.dropna(how="all")  # Quitar filas vacías
+        df = df.dropna(how="all")
 
-        # Detección de tipos
         tipos = df.dtypes.astype(str).to_dict()
+        numeric_cols = df.select_dtypes(include=['number']).columns.tolist()
 
-        # Análisis
         analisis = {
             "shape": df.shape,
             "columnas": list(df.columns),
             "tipos": tipos,
             "nulos": df.isnull().sum().to_dict(),
-            "estadisticas": df.describe(include="all").fillna("").to_dict()
+            "estadisticas": df.describe(include="all").fillna("").to_dict(),
+            "numeric_columns": numeric_cols
         }
-
+        
         return analisis
 
-        return analisis
+
     @staticmethod
     def get_files(session):
         return session.get(FileManager.UPLOAD_SESSION_KEY, [])

@@ -3,117 +3,117 @@
 {% block title %}Gestor de Archivos{% endblock %}
 
 {% block content %}
-<div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-teal-fresh/30 p-8 w-[600px]">
-    <!-- Header -->
-    <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-deep-teal mb-2">Archivos</h1>
-        <p class="text-gray-600">Sube y gestiona tus archivos CSV y Excel de forma sencilla</p>
-    </div>
+<div>
+    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-teal-fresh/30 p-8 w-[700px]">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-deep-teal mb-2">Archivos</h1>
+            <p class="text-gray-600">Sube y gestiona tus archivos CSV y Excel de forma sencilla</p>
+        </div>
 
-    <!-- Upload Form -->
-    <div class="mb-8">
-        <form method="POST" enctype="multipart/form-data" class="space-y-6">
-            <label for="file"
-                class="relative cursor-pointer block w-full border-2 border-dashed border-teal-fresh rounded-xl bg-fresh-mint/50 p-6 text-center transition-colors duration-200 hover:border-ocean-blue">
-                <input id="file" type="file" name="file" accept=".csv, .xlsx, .xls"
-                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" required>
-                <div id="uploadMessage" class="pointer-events-none relative z-0">
-                    <span class="text-4xl block mb-2">📄</span>
-                    <span class="text-sm text-gray-500">Arrastra tu archivo aquí o haz clic para seleccionar</span>
-                </div>
-            </label>
+        <!-- Upload Form -->
+        <section class="mb-8">
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                <label for="file"
+                    class="relative cursor-pointer block w-full border-2 border-dashed border-teal-fresh rounded-xl bg-fresh-mint/50 p-6 text-center transition-colors duration-200 hover:border-ocean-blue">
+                    <input id="file" type="file" name="file" accept=".csv, .xlsx, .xls"
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" required>
+                    <div id="uploadMessage" class="pointer-events-none relative z-0">
+                        <span class="text-4xl block mb-2">📄</span>
+                        <span class="text-sm text-gray-500">Arrastra tu archivo aquí o haz clic para seleccionar</span>
+                    </div>
+                </label>
 
-            <div class="flex justify-center">
-                <button type="submit" class="bg-gradient-to-r from-ocean-blue to-deep-teal text-white px-6 py-3 
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-gradient-to-r from-ocean-blue to-deep-teal text-white px-6 py-3 
                     rounded-full font-medium transition-all duration-200 hover:bg-[#b6faea]">
-                    <span class="flex items-center justify-center gap-2">
-                        <span>Subir Archivo</span>
-                    </span>
-                </button>
-            </div>
-        </form>
-    </div>
+                        <span class="flex items-center justify-center gap-2">
+                            <span>Subir Archivo</span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </section>
 
-    <!-- Files List -->
-    <div>
-        <h2 class="text-xl font-semibold text-deep-teal mb-4 flex items-center gap-2">
-            <span>📁</span>
-            Archivos cargados
-        </h2>
+        <!-- Files List -->
+        <section>
+            <h2 class="text-xl font-semibold text-deep-teal mb-4 flex items-center gap-2">
+                <span>📁</span>
+                Archivos cargados
+            </h2>
 
-        <div class="space-y-3 max-h-80 overflow-y-auto">
-            {% for file in files %}
-            <div class="bg-gradient-to-r from-sage-green/30 to-mint-green/50 border border-sage-green/50 
+            <div class="space-y-3 max-h-80 overflow-y-auto">
+                {% for file in files %}
+                <div class="bg-gradient-to-r from-sage-green/30 to-mint-green/50 border border-sage-green/50 
                             rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 group">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gradient-to-r from-emerald-400 to-teal-500 
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-r from-emerald-400 to-teal-500 
                                         rounded-lg flex items-center justify-center">
-                            <span class="text-white font-medium">
-                                {% if file.name.endswith('.csv') %}📊{% else %}📈{% endif %}
-                            </span>
-                        </div>
-                        <div>
-                            <span class="font-medium text-deep-teal">{{ file.name }}</span>
-                            <div class="text-xs text-gray-500 mt-1">
-                                {% if file.name.endswith('.csv') %}Archivo CSV{% else %}Archivo Excel{% endif %}
+                                <span class="text-white font-medium">
+                                    {% if file.name.endswith('.csv') %}📊{% else %}📈{% endif %}
+                                </span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-deep-teal">{{ file.name }}</span>
+                                <div class="text-xs text-gray-500 mt-1">
+                                    {% if file.name.endswith('.csv') %}Archivo CSV{% else %}Archivo Excel{% endif %}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <form method="POST" action="{{ url_for('main.delete_file', file_id=file.id) }}" class="delete-form">
-                        <button type="submit" class="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600 
+                        <form method="POST" action="{{ url_for('main.delete_file', file_id=file.id) }}"
+                            class="delete-form">
+                            <button type="submit" class="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600 
                                 p-2 rounded-lg hover:bg-red-50 transition-all duration-200
                                 focus:outline-none focus:ring-2 focus:ring-red-300">
-                            <span class="text-lg">🗑️</span>
-                        </button>
-                    </form>
+                                <span class="text-lg">🗑️</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center py-8">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl opacity-50">📄</span>
+                    </div>
+                    <p class="text-gray-500 mb-2">No hay archivos cargados aún</p>
+                    <p class="text-sm text-gray-400">Sube tu primer archivo CSV o Excel para comenzar</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+    {% for file in files %}
+    <div class="mt-6 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-teal-fresh/30 p-8 w-[700px]">
+        <section>
+            <h2 class="flex items-center gap-4 text-teal-700 font-semibold text-2xl mb-8">
+                📊 Análisis de {{ file.name }}
+            </h2>
+
+            <p><strong>Filas y columnas:</strong> {{ file.analisis.shape }}</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-teal-600">Tipos de variables</h3>
+                    <ul class="list-disc pl-6">
+                        {% for col, tipo in file.analisis.tipos.items() %}
+                        <li>{{ col }} → {{ tipo }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-teal-600">Valores nulos</h3>
+                    <ul class="list-disc pl-6">
+                        {% for col, nulos in file.analisis.nulos.items() %}
+                        <li>{{ col }} → {{ nulos }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-            {% else %}
-            <div class="text-center py-8">
-                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-2xl opacity-50">📄</span>
-                </div>
-                <p class="text-gray-500 mb-2">No hay archivos cargados aún</p>
-                <p class="text-sm text-gray-400">Sube tu primer archivo CSV o Excel para comenzar</p>
-            </div>
-            {% endfor %}
-        </div>
-      </div>
-    </section>
-    {% if analisis %}
-    <hr class="my-10 border-teal-300">
-
-    <section>
-      <h2 class="flex items-center gap-4 text-teal-700 font-semibold text-2xl mb-8 select-none">
-        <span>📊</span> Análisis del archivo
-      </h2>
-
-      <div class="space-y-4">
-        <p><strong>Filas y columnas:</strong> {{ analisis.shape }}</p>
-
-        <h3 class="text-xl font-semibold text-teal-600">Tipos de variables</h3>
-        <ul class="list-disc pl-6">
-          {% for col, tipo in analisis.tipos.items() %}
-            <li>{{ col }} → {{ tipo }}</li>
-          {% endfor %}
-        </ul>
-
-        <h3 class="text-xl font-semibold text-teal-600">Valores nulos</h3>
-        <ul class="list-disc pl-6">
-          {% for col, nulos in analisis.nulos.items() %}
-            <li>{{ col }} → {{ nulos }}</li>
-          {% endfor %}
-        </ul>
-
-        <h3 class="text-xl font-semibold text-teal-600">Estadísticas</h3>
-        <pre class="bg-teal-50 p-4 rounded-lg overflow-x-auto text-sm">{{ analisis.estadisticas | tojson(indent=2) }}</pre>
-      </div>
-    </section>
-    {% endif %}
-  </div>
+        </section>
+    </div>
+    {% endfor %}
 </div>
-
 
 <script>
     document.querySelectorAll('.delete-form').forEach(form => {
@@ -167,7 +167,7 @@
 <script>
     const uploadSuccess = "{{ session.pop('uploadSuccess', '') }}";
     if (uploadSuccess === 'True') {
-        Swal.fire({ 
+        Swal.fire({
             position: "top-end",
             icon: "success",
             title: "Archivo subido exitosamente",
@@ -175,7 +175,7 @@
             timer: 1000
         });
     } else if (uploadSuccess === 'False') {
-        Swal.fire({ 
+        Swal.fire({
             icon: "error",
             title: "Error al subir el archivo",
             text: "Verifica que el archivo sea válido e inténtalo de nuevo",

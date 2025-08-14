@@ -3,177 +3,195 @@
 {% block title %}Análisis de Datos{% endblock %}
 
 {% block content %}
-<div class="min-h-screen w-full bg-gradient-to-tr from-indigo-50 via-indigo-100 to-indigo-50 py-16 px-12 flex flex-col items-center">
+<div class="justify-center">
+  <div class="mt-6 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-teal-fresh/30 p-8 w-[900px]">
+    <h1 class="text-2xl font-extrabold text-cyan-500 text-center">
+      Análisis de Datos con Inteligencia Artificial
+    </h1>
 
-  <!-- Título principal -->
-  <h1 class="text-5xl font-extrabold text-indigo-900 mb-16 select-none text-center w-full max-w-[1200px]">
-    Análisis de Datos con Inteligencia Artificial
-  </h1>
+    <section class="w-full mt-6 px-6">
+      <h2 class="text-1xl font-extrabold mb-12 text-center select-none">
+        Técnicas de Inteligencia Artificial Aplicadas
+      </h2>
 
-  <!-- Formulario de carga -->
-  <form method="POST" enctype="multipart/form-data"
-    class="w-full max-w-[1200px] bg-white rounded-3xl shadow-2xl border border-indigo-300 p-12 mb-20
-           transition-shadow hover:shadow-3xl duration-300"
-  >
-    <label for="datafile"
-      class="block text-xl font-semibold text-indigo-700 mb-6 cursor-pointer select-none hover:text-indigo-900 transition-colors"
-    >
-      📄 Selecciona un archivo CSV para analizar
-    </label>
-    <input
-      type="file"
-      id="datafile"
-      name="datafile"
-      accept=".csv"
-      required
-      class="block w-full text-indigo-600
-             file:mr-4 file:py-3 file:px-6
-             file:rounded-full file:border-0
-             file:text-lg file:font-semibold
-             file:bg-indigo-600 file:text-white
-             hover:file:bg-indigo-700
-             cursor-pointer mb-8
-             transition-colors duration-300"
-    />
-    <span id="file-name" class="block text-indigo-400 italic mb-10 select-none">Ningún archivo seleccionado</span>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <!-- Clustering -->
+        <div
+          class="bg-indigo-50 p-8 rounded-3xl shadow-lg border border-indigo-200 hover:shadow-xl transition-shadow duration-300"
+          tabindex="0" aria-label="Clustering - Agrupar datos similares">
+          <div class="text-indigo-700 text-4xl mb-6 text-center select-none" aria-hidden="true">📊</div>
+          <h3 class="text-xl font-bold text-indigo-900 mb-4 text-center">Clustering</h3>
+          <p class="text-indigo-800 leading-relaxed text-center">
+            Agrupamos datos similares para descubrir patrones y segmentar tu información.<br />
+            <span class="font-semibold">Ejemplos:</span> K-means, DBSCAN
+          </p>
+        </div>
 
-    <button
-      type="submit"
-      class="w-full bg-gradient-to-r from-indigo-700 to-indigo-600 hover:from-indigo-800 hover:to-indigo-700
-             text-white font-bold py-5 rounded-3xl shadow-lg
-             transition duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-400 focus:ring-opacity-50"
-    >
-      Procesar Datos
-    </button>
-  </form>
+        <!-- Detección de Outliers -->
+        <div
+          class="bg-indigo-50 p-8 rounded-3xl shadow-lg border border-indigo-200 hover:shadow-xl transition-shadow duration-300"
+          tabindex="0" aria-label="Detección de outliers - Identificar valores atípicos">
+          <div class="text-indigo-700 text-4xl mb-6 text-center select-none" aria-hidden="true">🚩</div>
+          <h3 class="text-xl font-bold text-indigo-900 mb-4 text-center">Detección de Outliers</h3>
+          <p class="text-indigo-800 leading-relaxed text-center">
+            Identificamos valores atípicos que pueden indicar errores o eventos importantes.<br />
+            <span class="font-semibold">Métodos:</span> Z-score, IQR, Isolation Forest
+          </p>
+        </div>
 
-  <!-- Sección: Técnicas IA -->
-  <section class="w-full max-w-[1200px] mb-24 px-6">
-    <h2 class="text-4xl font-extrabold text-indigo-900 mb-12 text-center select-none">
-      Técnicas de Inteligencia Artificial Aplicadas
-    </h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-      <!-- Clustering -->
-      <div
-        class="bg-indigo-50 p-8 rounded-3xl shadow-lg border border-indigo-200 hover:shadow-xl transition-shadow duration-300"
-        tabindex="0" aria-label="Clustering - Agrupar datos similares"
-      >
-        <div class="text-indigo-700 text-6xl mb-6 text-center select-none" aria-hidden="true">📊</div>
-        <h3 class="text-2xl font-bold text-indigo-900 mb-4 text-center">Clustering</h3>
-        <p class="text-indigo-800 leading-relaxed text-center">
-          Agrupamos datos similares para descubrir patrones y segmentar tu información.<br />
-          <span class="font-semibold">Ejemplos:</span> K-means, DBSCAN
-        </p>
+        <!-- Análisis de Correlaciones -->
+        <div
+          class="bg-indigo-50 p-8 rounded-3xl shadow-lg border border-indigo-200 hover:shadow-xl transition-shadow duration-300"
+          tabindex="0" aria-label="Análisis de correlaciones - Explorar relaciones entre variables">
+          <div class="text-indigo-700 text-4xl mb-6 text-center select-none" aria-hidden="true">🔗</div>
+          <h3 class="text-xl font-bold text-indigo-900 mb-4 text-center">Análisis de Correlaciones</h3>
+          <p class="text-indigo-800 leading-relaxed text-center">
+            Exploramos relaciones entre variables para entender dependencias y tendencias.
+          </p>
+        </div>
       </div>
-
-      <!-- Detección de Outliers -->
-      <div
-        class="bg-indigo-50 p-8 rounded-3xl shadow-lg border border-indigo-200 hover:shadow-xl transition-shadow duration-300"
-        tabindex="0" aria-label="Detección de outliers - Identificar valores atípicos"
-      >
-        <div class="text-indigo-700 text-6xl mb-6 text-center select-none" aria-hidden="true">🚩</div>
-        <h3 class="text-2xl font-bold text-indigo-900 mb-4 text-center">Detección de Outliers</h3>
-        <p class="text-indigo-800 leading-relaxed text-center">
-          Identificamos valores atípicos que pueden indicar errores o eventos importantes.<br />
-          <span class="font-semibold">Métodos:</span> Z-score, IQR, Isolation Forest
-        </p>
-      </div>
-
-      <!-- Análisis de Correlaciones -->
-      <div
-        class="bg-indigo-50 p-8 rounded-3xl shadow-lg border border-indigo-200 hover:shadow-xl transition-shadow duration-300"
-        tabindex="0" aria-label="Análisis de correlaciones - Explorar relaciones entre variables"
-      >
-        <div class="text-indigo-700 text-6xl mb-6 text-center select-none" aria-hidden="true">🔗</div>
-        <h3 class="text-2xl font-bold text-indigo-900 mb-4 text-center">Análisis de Correlaciones</h3>
-        <p class="text-indigo-800 leading-relaxed text-center">
-          Exploramos relaciones entre variables para entender dependencias y tendencias.
-        </p>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <!-- Resultados: Clustering, Outliers, etc -->
-  {% if clustering_kmeans_labels %}
-  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
-    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Clustering K-means</h2>
-    <p class="mb-3 text-indigo-800 font-medium">Etiquetas:</p>
-    <ul class="list-disc list-inside text-indigo-700 space-y-1">
-      {% for label in clustering_kmeans_labels %}
-        <li>{{ label }}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
+  {% for res in resultados %}
+  <section
+    class="mt-6 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-teal-fresh/30 p-8 w-[900px] mx-auto text-center">
+    <h2 class="text-teal-700 font-semibold text-3xl mb-6">{{ res.filename }}</h2>
 
-  {% if clustering_dbscan_labels %}
-  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
-    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Clustering DBSCAN</h2>
-    <p class="mb-3 text-indigo-800 font-medium">Etiquetas:</p>
-    <ul class="list-disc list-inside text-indigo-700 space-y-1">
-      {% for label in clustering_dbscan_labels %}
-        <li>{{ label }}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
+    {% if res.analisis.numeric_columns %}
+    <form class="scatterForm flex flex-wrap justify-center items-end gap-4 mb-6" method="POST" action="/scatter">
+      <input type="hidden" name="file_id" value="{{ res.file_id }}">
 
-  {% if status_zscore %}
-  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
-    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Outliers detectados con Z-score</h2>
-    <ul class="text-indigo-700 space-y-1">
-      {% for stat in status_zscore %}
-        <li>Fila {{ loop.index }}: {{ stat }}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
+      <div class="flex flex-col max-h-40 overflow-y-auto">
+        <label for="x_column" class="font-medium mb-1">Eje X:</label>
+        <select name="x_column" class="border border-gray-300 rounded px-2 py-1">
+          {% for col in res.analisis.numeric_columns %}
+          <option value="{{ col }}" {% if loop.index0==0 %}selected{% endif %}>{{ col }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-  {% if status_iqr %}
-  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
-    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Outliers detectados con IQR</h2>
-    <ul class="text-indigo-700 space-y-1">
-      {% for stat in status_iqr %}
-        <li>Fila {{ loop.index }}: {{ stat }}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
+      <div class="flex flex-col max-h-40 overflow-y-auto">
+        <label for="y_column" class="font-medium mb-1">Eje Y:</label>
+        <select name="y_column" class="border border-gray-300 rounded px-2 py-1">
+          {% for col in res.analisis.numeric_columns %}
+          <option value="{{ col }}" {% if loop.index0==1 %}selected{% endif %}>{{ col }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-  {% if status_iso %}
-  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
-    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Outliers detectados con Isolation Forest</h2>
-    <ul class="text-indigo-700 space-y-1">
-      {% for stat in status_iso %}
-        <li>Fila {{ loop.index }}: {{ stat }}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
+      <button type="submit" class="bg-cyan-500 text-white font-semibold px-4 py-2 rounded hover:bg-cyan-600 transition">
+        Generar Gráfico
+      </button>
+    </form>
 
-  {% if plot_img %}
-  <section class="w-full max-w-[1200px] px-6 mb-16 bg-white rounded-xl shadow-lg border border-indigo-200 p-8">
-    <h2 class="text-3xl font-semibold text-indigo-900 mb-6 border-b border-indigo-300 pb-2 select-none">Matriz de Correlación</h2>
-    <div class="overflow-auto rounded shadow-lg border border-indigo-200 p-4 bg-white">
-      <img src="data:image/png;base64,{{ plot_img }}" alt="Heatmap de correlación" class="mx-auto max-w-full rounded-md shadow-md" />
+    <div class="scatterContainer border border-gray-200 rounded p-4 bg-gray-50 mx-auto" style="max-width: 700px;"></div>
+
+    {% endif %}
+
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-12">
+      {% if res.clustering_kmeans_labels %}
+      <div class="w-full">
+        <h3 class="font-semibold mb-2">Clustering K-Means</h3>
+        <div class="max-h-48 overflow-y-auto border border-gray-200 rounded p-2 bg-gray-50">
+          <ul>
+            {% for label in res.clustering_kmeans_labels %}
+            <li>{{ label }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if res.clustering_dbscan_labels %}
+      <div class="w-full">
+        <h3 class="font-semibold mb-2">Clustering DBSCAN</h3>
+        <div class="max-h-48 overflow-y-auto border border-gray-200 rounded p-2 bg-gray-50">
+          <ul>
+            {% for label in res.clustering_dbscan_labels %}
+            <li>{{ label }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if res.status_zscore %}
+      <div class="w-full">
+        <h3 class="font-semibold mb-2">Outliers Z-Score</h3>
+        <div class="max-h-48 overflow-y-auto border border-gray-200 rounded p-2 bg-gray-50">
+          <ul>
+            {% for stat in res.status_zscore %}
+            <li>Fila {{ loop.index }}: {{ stat }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
     </div>
-  </section>
-  {% endif %}
 
+    {% if res.plot_img %}
+    <h3 class="mt-10 font-semibold">Matriz de Correlación</h3>
+    <img src="data:image/png;base64,{{ res.plot_img }}" alt="Heatmap" class="max-w-full rounded mx-auto" />
+    {% endif %}
+  </section>
+  {% endfor %}
 </div>
 
-<script>
-  // Mostrar nombre del archivo seleccionado
-  const inputFile = document.getElementById('datafile');
-  const fileNameSpan = document.getElementById('file-name');
 
-  inputFile.addEventListener('change', () => {
-    if (inputFile.files.length > 0) {
-      fileNameSpan.textContent = inputFile.files[0].name;
-    } else {
-      fileNameSpan.textContent = 'Ningún archivo seleccionado';
-    }
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".scatterForm");
+    const container = form.nextElementSibling;
+
+    // Función para generar el scatter plot inicial
+    const generateInitialPlot = () => {
+      const formData = new FormData(form);
+      fetch("/scatter", {
+        method: "POST",
+        body: formData
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.scatter_plot) {
+            container.innerHTML = `<img src="data:image/png;base64,${data.scatter_plot}" alt="Scatter Plot">`;
+          } else {
+            container.innerHTML = `<p style="color:red;">${data.error}</p>`;
+          }
+        });
+    };
+
+    generateInitialPlot(); // Genera el scatter al cargar la página
+
+    // Re-generar cuando se cambian columnas
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      generateInitialPlot();
+    });
+  });
+</script>
+
+<script>
+  document.querySelectorAll(".scatterForm").forEach(form => {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const container = this.nextElementSibling;
+
+      fetch("/scatter", {
+        method: "POST",
+        body: formData
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.scatter_plot) {
+            container.innerHTML = `<img src="data:image/png;base64,${data.scatter_plot}" alt="Scatter Plot">`;
+          } else {
+            container.innerHTML = `<p style="color:red;">${data.error}</p>`;
+          }
+        });
+    });
   });
 </script>
 {% endblock %}
