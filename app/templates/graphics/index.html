@@ -88,6 +88,8 @@
 
     <div class="scatterContainer border border-gray-200 rounded p-4 bg-gray-50 mx-auto" style="max-width: 700px;"></div>
 
+    <img src="data:image/png;base64,{{ res.boxplot_img }}" alt="Boxplot" class="mt-6 max-w-full rounded mx-auto" />
+
     {% endif %}
 
     <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -168,6 +170,29 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       generateInitialPlot();
+    });
+  });
+</script>
+
+<script>
+  document.querySelectorAll(".graphicsTypeForm").forEach(form => {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const container = this.nextElementSibling;
+
+      fetch("/graphics_types", {
+        method: "POST",
+        body: formData
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.graph) {
+            container.innerHTML = `<img src="data:image/png;base64,${data.graph}" alt="Gráfico">`;
+          } else {
+            container.innerHTML = `<p style="color:red;">${data.error}</p>`;
+          }
+        });
     });
   });
 </script>

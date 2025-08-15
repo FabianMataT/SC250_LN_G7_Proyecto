@@ -49,3 +49,22 @@ def plot_correlation_matrix(df):
     buf.seek(0)
     img_base64 = base64.b64encode(buf.read()).decode('utf-8')
     return img_base64
+
+def plot_boxplot(df, max_columns=10, max_rows=1000):
+    numeric_cols = df.select_dtypes(include=[np.number]).columns[:max_columns]
+    if len(numeric_cols) == 0:
+        return None
+
+    df_num = df[numeric_cols].dropna()
+    df_sample = df_num.sample(min(len(df_num), max_rows), random_state=42)
+
+    plt.figure(figsize=(8,6))
+    sns.boxplot(data=df_sample, orient='h')
+    plt.title("Diagrama de caja (todas las columnas numéricas)")
+
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', bbox_inches='tight')
+    plt.close()
+    buf.seek(0)
+    img_base64 = base64.b64encode(buf.read()).decode('utf-8')
+    return img_base64

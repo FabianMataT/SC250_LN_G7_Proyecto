@@ -136,6 +136,12 @@ def graphics():
         except Exception as e:
             print(f"Heatmap error en {f['name']}: {e}")
             heatmap_img = None
+            
+        try:
+            boxplot_img = ia_tools.plot_boxplot(df)
+        except Exception as e:
+            print(f"Boxplot error en {f['name']}: {e}")
+            boxplot_img = None
 
         resultado = {
             "file_id": file_id,
@@ -148,7 +154,8 @@ def graphics():
             "status_zscore": zscore_outliers,
             "status_iqr": iqr_outliers,
             "status_iso": iso_outliers,
-            "plot_img": heatmap_img
+            "plot_img": heatmap_img,
+            "boxplot_img": boxplot_img
         }
 
         resultados.append(resultado)
